@@ -1,0 +1,30 @@
+backend:
+    functions:
+        - entry: src/index.js
+          handler: handler
+          name: express
+          path: .
+          type: httpServer
+    language:
+        name: js
+        runtime: nodejs20.x
+    path: node-api
+    scripts:
+        deploy:
+            - npm install
+        local:
+            - npm install
+frontend:
+    environment:
+        VITE_API_URL_EXPRESS: ${{ backend.functions.express.url }}
+    path: material-react-app
+    publish: build
+    scripts:
+        build:
+            - npm run build
+        deploy:
+            - npm install
+    subdomain: BPI-CPMD
+name: BPI-CPMD
+region: us-east-1
+yamlVersion: 2
